@@ -96,5 +96,10 @@ class StudentController extends Controller
         return view("student.old_site");
     }
 
+    public function admitCard(){
+        $students = Student::all();
+        return view("student.admit_card", ['students'=>$students]);
+    }
+
 
 }

@@ -25,7 +25,10 @@ Route::get('/student/add', [StudentController::class, 'create'])->name('student.
 Route::post('/student/add', [App\Http\Controllers\StudentController::class, 'store'])->name('student.store');
 
 Route::get('/student/view/{id}', [StudentController::class, 'singleView'])->name('student.view');
+
 Route::get('/old', [App\Http\Controllers\StudentController::class, 'oldSite']);
+Route::get('/student/admit-card', [App\Http\Controllers\StudentController::class, 'admitCard']);
+
 
 Auth::routes();
 
