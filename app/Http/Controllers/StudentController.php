@@ -39,7 +39,7 @@ class StudentController extends Controller
             'father'    => 'required',
             'gender'    => 'required',
             'dob'       => 'date|nullable',
-            'aadhaar'   => 'numeric|size:12|nullable',
+            
             'mobile'    => 'regex:/^[6-9][0-9]{9}/i',
             'address'   => 'required',
             'class'     => 'required', 

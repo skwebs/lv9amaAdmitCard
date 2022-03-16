@@ -30,13 +30,32 @@
             color-adjust: exact !important;
             /*Firefox*/
         }
+
+        .admit-card {
+            background: linear-gradient(rgba(250, 250, 250, 0.9),
+                rgba(255, 255, 255, 0.85)),
+            url("{{asset('images/web/ama-logo.jpg')}}") center/60px 60px round;
+            /* box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15); */
+            width: 735px;
+            height: 510px;
+            margin-top: 0 !important;
+            margin-bottom: 0 !important;
+            padding-top: 0 !important;
+            padding-bottom: 0 !important;
+        }
     }
 
     .admit-card {
         background: linear-gradient(rgba(250, 250, 250, 0.85),
             rgba(255, 255, 255, 0.85)),
         url("{{asset('images/web/ama-logo.jpg')}}") center/60px 60px round;
-        box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+        /* box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15); */
+        width: 735px;
+        height: 510px;
+        margin-top: 0 !important;
+        margin-bottom: 0 !important;
+        padding-top: 0 !important;
+        padding-bottom: 0 !important;
     }
 
 
@@ -50,14 +69,14 @@
     .seal {
         position: absolute;
         left: 300px;
-        bottom: 20px;
+        bottom: 25px;
         width: 100px;
     }
 
     .seal-on-pic {
         position: absolute;
-        right: 100px;
-        bottom: 100px;
+        right: 94px;
+        bottom: 87px;
         width: 100px;
     }
     </style>
@@ -71,10 +90,17 @@
 
     <?php  $sn++ ?>
 
-    <div style="width: 740px" class="card admit-card mx-auto">
+    <div style="width: 735px" height="518" class="card admit-card mx-auto">
         <div class="card-body">
             <!-- MAIN TABLE -->
             <table>
+                <tr>
+                    <td>
+                        <div style="width: 700px;" class="d-flex justify-content-between my-0 py-0">
+                            <span>Estd. 2017</span><span>Reg. No. 054631</span>
+                        </div>
+                    </td>
+                </tr>
                 <!-- FIRST ROW -->
                 <tr>
                     <td>
@@ -85,15 +111,17 @@
                                     <img height="80" src="{{asset('images/web/ama-logo.jpg')}}" alt="" srcset="" />
                                 </td>
                                 <td>
-                                    <h1 class="text-center fs-1">
+                                    <p class="text-center fs-1 py-0 my-0">
                                         <strong>
                                             Anshu Memorial
                                             Academy</strong>
-                                    </h1>
-                                    <p class="text-center">
-                                        Bhatha Dasi, Rajapakar,
-                                        Vaishali, Bihar-844124
                                     </p>
+
+                                    <p class="text-center my-0 ">
+                                        Run and managed by <strong>AnitaBindeshwar Foundation</strong> (Companies Act
+                                        2013).
+                                    </p>
+
                                 </td>
                                 <td width="80">
                                     <img height="80" src="{{asset('images/web/bbbp.jpg')}}" alt="" srcset="" />
@@ -103,7 +131,14 @@
                     </td>
                 </tr>
                 <!-- //FIRST ROW -->
-
+                <tr>
+                    <td>
+                        <p class="text-center">
+                            <strong>Bhatha Dasi, Rajapakar,
+                                Vaishali, Bihar-844124</strong>
+                        </p>
+                    </td>
+                </tr>
                 <!-- SECOND ROW -->
                 <tr>
                     <td class="text-center">
@@ -114,7 +149,7 @@
                 </tr>
                 <tr>
                     <td class="text-center">
-                        <p class="fs-4">Annual Examination 2022</p>
+                        <p class="fs-4 my-0">Annual Examination 2022</p>
                     </td>
                 </tr>
                 <!-- //SECOND ROW -->
@@ -130,7 +165,7 @@
                                         <tr>
                                             <td>
                                                 <!-- name -->
-                                                <table class="table">
+                                                <table class="table mb-0">
                                                     <tr>
                                                         <td>Name</td>
                                                         <td>
@@ -151,7 +186,7 @@
                                             <td></td>
                                             <td>
                                                 <!-- class -->
-                                                <table class="table">
+                                                <table class="table mb-0">
                                                     <tr>
                                                         <td>Class</td>
                                                         <td>: <strong>{{$student->class}}</strong></td>
@@ -166,9 +201,9 @@
                                         </tr>
 
                                         <tr>
-                                            <td colspan="4">Note: Keep this card safely and must bring to
-                                                exam venue
-                                                on every exam date.
+                                            <td colspan="4" class="py-0">
+                                                Note: <strong>Keep this card safely and must bring to
+                                                    exam venue on every exam date.</strong>
                                             </td>
 
                                         </tr>
@@ -194,6 +229,8 @@
                 <tr>
                     <td>
                         <br>
+                        <br>
+
                     </td>
                 </tr>
                 <tr>
@@ -211,6 +248,7 @@
             <!-- //MAIN -->
         </div>
     </div>
+
 
     @if($sn % 2 == 0)
     <div class="page-break"></div>
