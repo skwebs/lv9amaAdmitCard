@@ -214,7 +214,7 @@
                                     <table class="table table-borderless">
                                         <tr>
                                             <td width="100">
-                                                <img height="130" src="/upload/images/students/{{$student->image}}"
+                                                <img height="130" src="{{asset('upload/images/students/'.$student->image)}}"
                                                     alt="{{$student->image}}" />
                                                 <img class="seal-on-pic" src="{{asset('images/web/seal-300.png')}}">
                                             </td>

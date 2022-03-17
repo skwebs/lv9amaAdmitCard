@@ -34,7 +34,7 @@
                         <!-- name -->
                         <div class="row mb-3">
                             <label for="name"
-                                class="col-md-4 col-form-label text-md-end">{{ __('Student\'s Name') }}</label>
+                                class="col-md-4 col-form-label text-md-end">{{ __('Student\'s Name*') }}</label>
 
                             <div class="col-md-6">
                                 <input id="name" type="text" class="form-control @error('name') is-invalid @enderror"
@@ -71,7 +71,7 @@
                         <!-- father -->
                         <div class="row mb-3">
                             <label for="father"
-                                class="col-md-4 col-form-label text-md-end">{{ __('Father\'s Name') }}</label>
+                                class="col-md-4 col-form-label text-md-end">{{ __('Father\'s Name*') }}</label>
 
                             <div class="col-md-6">
                                 <input id="father" type="text"
@@ -89,7 +89,7 @@
 
                         <!-- gender -->
                         <div class="row mb-3">
-                            <label class="col-md-4 col-form-label text-md-end">{{ __('Gender') }}</label>
+                            <label class="col-md-4 col-form-label text-md-end">{{ __('Gender*') }}</label>
 
                             <div class="col-md-6 mt-md-2">
 
@@ -154,7 +154,7 @@
                         <!-- mobile -->
                         <div class="row mb-3">
                             <label for="mobile"
-                                class="col-md-4 col-form-label text-md-end">{{ __('Contact No.') }}</label>
+                                class="col-md-4 col-form-label text-md-end">{{ __('Contact No.*') }}</label>
 
                             <div class="col-md-6">
                                 <input id="mobile" type="tel" class="form-control @error('mobile') is-invalid @enderror"
@@ -172,7 +172,7 @@
 
                         <!-- address -->
                         <div class="row mb-3">
-                            <label for="address" class="col-md-4 col-form-label text-md-end">{{ __('Address') }}</label>
+                            <label for="address" class="col-md-4 col-form-label text-md-end">{{ __('Address*') }}</label>
 
                             <div class="col-md-6">
                                 <input id="address" type="text"
@@ -192,7 +192,7 @@
 
                         <!-- class -->
                         <div class="row mb-3">
-                            <label for="class" class="col-md-4 col-form-label text-md-end">{{ __('Class') }}</label>
+                            <label for="class" class="col-md-4 col-form-label text-md-end">{{ __('Class*') }}</label>
 
                             <div class="col-md-6">
 
@@ -231,7 +231,7 @@
 
                         <!-- roll no. -->
                         <div class="row mb-3">
-                            <label for="roll" class="col-md-4 col-form-label text-md-end">{{ __('Roll No.') }}</label>
+                            <label for="roll" class="col-md-4 col-form-label text-md-end">{{ __('Roll No.*') }}</label>
 
                             <div class="col-md-6">
                                 <input id="roll" type="number" class="form-control @error('roll') is-invalid @enderror"
@@ -249,7 +249,7 @@
 
                         <!-- student type -->
                         <div class="row mb-3">
-                            <label class="col-md-4 col-form-label text-md-end">{{ __('Student Type') }}</label>
+                            <label class="col-md-4 col-form-label text-md-end">{{ __('Student Type*') }}</label>
 
                             <div class="col-md-6 pt-md-2">
 
@@ -277,7 +277,7 @@
 
                         <!-- image -->
                         <div class="row mb-3">
-                            <label for="image" class="col-md-4 col-form-label text-md-end">{{ __('Image') }}</label>
+                            <label for="image" class="col-md-4 col-form-label text-md-end">{{ __('Image*') }}</label>
 
                             <div class="col-md-6">
                                 <input id="image" type="file" class="form-control @error('image') is-invalid @enderror"

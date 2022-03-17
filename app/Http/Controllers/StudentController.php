@@ -83,9 +83,28 @@ class StudentController extends Controller
     
     }
 
-    public function singleView($id){
+    public function view($id){
         $student = Student::where('id',$id)->first();
-        return view('student.view_student', compact('student'));
+        return view('student.view_admit_card', compact('student'));
+    }
+    
+    public function edit($id){
+        $student = Student::where('id',$id)->first();
+        
+        return '<h1><center>This function did not set yet.</center></h1>';
+       
+    }
+    
+    public function update($id){
+        
+        
+    }
+    
+    public function delete($id){
+        $student = Student::where('id',$id)->first();
+        
+        return '<h1><center>This function did not set yet.</center></h1>';
+       
     }
 
     public function oldAma(){

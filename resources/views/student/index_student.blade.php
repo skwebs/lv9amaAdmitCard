@@ -38,16 +38,16 @@
                                     <td>{{$student->class}}</td>
                                     <td>{{$student->roll}}</td>
                                     <td>
-                                        <img height="50" src="/upload/images/students/{{$student->image}}"
+                                        <img height="50" src="{{asset('upload/images/students/'.$student->image)}}"
                                             alt="{{$student->image}}">
                                     </td>
                                     <td>
                                         <div class="btn-group" role="group" aria-label="Basic example">
-                                            <a href="/student/view/{{$student->id}}" type="button"
+                                            <a href="{{route('student.view',$student->id)}}" type="button"
                                                 class="btn btn-outline-primary">View</a>
-                                            <a href="/student/edit/{{$student->id}}" type="button"
+                                            <a href="{{route('student.edit',$student->id)}}" type="button"
                                                 class="btn btn-outline-warning">Edit</a>
-                                            <a href="/student/delete/{{$student->id}}" type="button"
+                                            <a href="{{route('student.delete',$student->id)}}" type="button"
                                                 class="btn btn-outline-danger">Delete</a>
                                         </div>
                                     </td>
