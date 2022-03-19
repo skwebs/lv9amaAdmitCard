@@ -20,22 +20,29 @@ Route::get('/', function () {
 });
 */
 
-Route::get('/', [App\Http\Controllers\StudentController::class, 'index']);
+Route::controller(StudentController::class)->group(function () {
 
-Route::get('/student/add', [StudentController::class, 'create'])->name('student.create');
-Route::post('/student/add', [App\Http\Controllers\StudentController::class, 'store'])->name('student.store');
-
-Route::get('/student/view/{id}', [StudentController::class, 'view'])->name('student.view');
-
-Route::get('/student/edit/{id}', [StudentController::class, 'edit'])->name('student.edit');
-
-Route::post('/student/update/{id}', [StudentController::class, 'update'])->name('student.update');
-
-Route::get('/student/delete/{id}', [StudentController::class, 'delete'])->name('student.delete');
-
-
-Route::get('/old', [App\Http\Controllers\StudentController::class, 'oldSite']);
-Route::get('/student/admit-card', [App\Http\Controllers\StudentController::class, 'admitCard']);
+    
+    Route::get('/', 'index')->name('student.list');
+    
+    Route::get('/student/create','create')->name('student.create');
+    
+    Route::post('/student/store','store')->name('student.store');
+    
+    Route::get('/student/upload-image/{id}', 'upload_image')->name('student.upload_image');
+    
+    Route::post('/student/save-image', 'save_image')->name('student.save_image');
+    
+    Route::get('/student/show/{id}','show')->name('student.view');
+    
+    Route::get('/student/edit/{id}','edit')->name('student.edit');   
+   
+    Route::post('/student/update/{id}','update')->name('student.update');
+    
+    Route::delete('/student/delete/{id}','destroy')->name('student.delete');
+    
+    Route::get('/student/admit-cards','admit_cards')->name('students.admit_cards');
+});
 
 
 Auth::routes();

@@ -2,123 +2,156 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Student;
+use Illuminate\Http\Request;
 
 class StudentController extends Controller
 {
-      /**
-     * Create a new controller instance.
+    /**
+     * Display a listing of the resource.
      *
-     * @return void
+     * @return \Illuminate\Http\Response
      */
-    public function __construct()
+    public function index()
     {
-        // $this->middleware('auth');
+        //
+        $data['students'] = Student::orderByDesc('id')->get(); //orderBy('id','desc');
+        //dd($data);
+        return view('students.index',$data);
+        
     }
 
-    public function index(){
-
-        $students = Student::all();
-        // dd($students);
-
-
-        return view('student.index_student',['students'=>$students]);
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+    	return view('students.create');
     }
 
-    public function create(){
-        return view('student.add_student');
-    }
-
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
     public function store(Request $request)
-    {       
-
+    {
+        //
         $request->validate([
-            'name'      => 'required',
-            'mother'    => 'nullable',
-            'father'    => 'required',
-            'gender'    => 'required',
-            'dob'       => 'date|nullable',
-            
-            'mobile'    => 'regex:/^[6-9][0-9]{9}/i',
-            'address'   => 'required',
-            'class'     => 'required', 
-            'roll'      => 'numeric|required',
-            'student_type'=> 'required',
-            'image' => 'required|image|mimes:jpeg,png,jpg|max:2048',
+        'name'      => 'required',
+        'mother'    => 'nullable',
+        'father'    => 'required',
+        'gender'    => 'required',
+        'dob'       => 'date|nullable',
+        'mobile'    => 'regex:/^[6-9][0-9]{9}/i',
+        'address'   => 'required',
+        'class'     => 'required', 
+        'roll'      => 'numeric|required',
+        'student_type'=> 'required',
         ]);
-    
-        $imageName = $request->name."_".time().'.'.$request->image->extension();  
-     
-        $request->image->move(public_path('upload/images/students'), $imageName);
-  
-        /* Store $imageName name in DATABASE from HERE */
-    
-        // return back()
-        //     ->with('success','You have successfully upload image.')
-        //     ->with('image',$imageName); 
-
-        // dd($request->all());
-
-         $student = new Student;
-
-         $student->name = $request->name;
-         $student->mother = $request->mother;
-         $student->father = $request->father;
-         $student->gender = $request->gender;
-         $student->dob = $request->dob;
-         $student->aadhaar = $request->aadhaar;
-         $student->mobile = $request->mobile;
-         $student->address = $request->address;
-         $student->class = $request->class;
-         $student->roll = $request->roll;
-         $student->student_type = $request->student_type;
-         $student->image = $imageName;
-
-        //  dd($request->name);
-         
-         $student->save();
-
-         return redirect("/student")->with('success',$request->name.' data uploaded successfully.');
-    
-    }
-
-    public function view($id){
-        $student = Student::where('id',$id)->first();
-        return view('student.view_admit_card', compact('student'));
-    }
-    
-    public function edit($id){
-        $student = Student::where('id',$id)->first();
         
-        return '<h1><center>This function did not set yet.</center></h1>';
-       
+        $student = Student::create($request->all());
+        
+        return redirect()->route('student.upload_image',$student->id);
+            
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  \App\Models\Student  $student
+     * @return \Illuminate\Http\Response
+     */
+    //public function show(Student $student)
+    public function show($id)
+    {
+        $data['student'] = Student::whereId($id)->first();
+        return view('students.admit_card_single', $data);
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  \App\Models\Student  $student
+     * @return \Illuminate\Http\Response
+     */
+    public function edit(Student $student)
+    {
+        //
+        return view('students.edit', compact('student'));
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Models\Student  $student
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, Student $student)
+    {
+        //
+        $request->validate([
+        'dob'       => 'date',
+        'mobile'    => 'regex:/^[6-9][0-9]{9}/i',
+        'roll'      => 'numeric',
+        'image' 	=> 'image|mimes:jpeg,png,jpg|max:2048',
+        ]);
+        
+        $student->update($request->all());
+        
+        return redirect()->route('student.list');
+        
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  \App\Models\Student  $student
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id)
+    {
+    
+    	$student = Student::whereId($id)->first();
+    	
+        $student->delete();
+        
+        return redirect()->route('student.list');
     }
     
-    public function update($id){
-        
-        
+    
+    public function upload_image($id)
+    {
+    	return view('students.crop_image',compact('id'));
     }
     
-    public function delete($id){
-        $student = Student::where('id',$id)->first();
-        
-        return '<h1><center>This function did not set yet.</center></h1>';
-       
+    public function save_image(Request $request)
+    {
+		$imageName = time().'.jpg'; //$request->image->extension();  
+		
+		$request->image->move(public_path('upload/images/students'), $imageName);
+		
+		$student = Student::whereId($request->id)->first();
+    	
+    	$student->image = $imageName;
+    	
+    	$student->save();
+    	
+		//	all array data encode into json for client
+		return response()->json([
+			'success'=>true,
+			'msg'=>'Image uploaded.'
+		]);
+    
     }
-
-    public function oldAma(){
-        return view("old_ama");
+    
+    public function admit_cards()
+    {
+    	$data['students'] = Student::get(); //orderBy('id','desc');
+    	return view('students.admit_card_all',$data);
     }
-
-    public function oldSite(){
-        return view("student.old_site");
-    }
-
-    public function admitCard(){
-        $students = Student::all();
-        return view("student.admit_card", ['students'=>$students]);
-    }
-
-
 }

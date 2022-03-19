@@ -27,7 +27,7 @@ return new class extends Migration
             // $table->enum('standard', ['Play','Nursery','LKG.','UKG.','Std. 1','Std. 2','Std. 3','Std. 4']);
             $table->enum('student_type',['Existing','New']);
             $table->bigInteger('roll');
-            $table->string('image');
+            $table->string('image')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });
