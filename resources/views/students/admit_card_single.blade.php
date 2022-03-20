@@ -34,7 +34,7 @@
         .admit-card {
             background: linear-gradient(rgba(250, 250, 250, 0.9),
                 rgba(255, 255, 255, 0.85)),
-            url("{{asset('images/web/ama_256.png')}}") center/60px 60px round;
+            url("{{asset('images/web/ama300.webp')}}") center/60px 60px round;
             /* box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15); */
             width: 735px;
             height: 510px;
@@ -48,7 +48,7 @@
     .admit-card {
         background: linear-gradient(rgba(250, 250, 250, 0.85),
             rgba(255, 255, 255, 0.85)),
-        url("{{asset('images/web/ama_256.png')}}") center/60px 60px round;
+        url("{{asset('images/web/ama300.webp')}}") center/60px 60px round;
         /* box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15); */
         width: 735px;
         height: 510px;
@@ -75,8 +75,8 @@
 
     .seal-on-pic {
         position: absolute;
-        right: 94px;
-        bottom: 87px;
+        right: 54px;
+        bottom: 50px;
         width: 100px;
     }
     </style>
@@ -103,7 +103,7 @@
                         <table width="700">
                             <tr>
                                 <td width="80">
-                                    <img height="80" src="{{asset('images/web/ama_256.png')}}" alt="" srcset="" />
+                                    <img height="80" src="{{asset('images/web/ama300.webp')}}" alt="" srcset="" />
                                 </td>
                                 <td>
                                     <p class="text-center fs-1 py-0 my-0">
@@ -119,7 +119,7 @@
 
                                 </td>
                                 <td width="80">
-                                    <img height="80" src="{{asset('images/web/bbbp_300.png')}}" alt="" srcset="" />
+                                    <img height="80" src="{{asset('images/web/bbbp300.webp')}}" alt="" srcset="" />
                                 </td>
                             </tr>
                         </table>
@@ -211,7 +211,7 @@
                                             <td width="100">
                                                 <img height="130" src="{{asset('upload/images/students/'.$student->image)}}"
                                                     alt="{{$student->image}}" />
-                                                <img class="seal-on-pic" src="{{asset('images/web/seal_300.png')}}">
+                                                <img class="seal-on-pic" src="{{asset('images/web/ama_seal300.webp')}}">
                                             </td>
                                         </tr>
                                     </table>
@@ -233,7 +233,7 @@
                         <table width="700" class="text-center">
                             <tr>
                                 <td>Principal Sign</td>
-                                <td> School Seal <img class="seal" src="{{asset('images/web/seal_300.png')}}"></td>
+                                <td> School Seal <img class="seal" src="{{asset('images/web/ama_seal300.webp')}}"></td>
                                 <td>Exam Controller</td>
                             </tr>
                         </table>

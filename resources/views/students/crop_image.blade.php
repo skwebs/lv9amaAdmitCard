@@ -63,7 +63,8 @@
 			    <h3>Image preview</h3>
 			    <div class="image_wrapper border" >
 					 <label class="label" data-toggle="tooltip" title="Change image">
-						 <img id="avatar" src="https://skwebs.github.io/cropper-and-php/assets/img/select-an-image.jpg" alt="crop image" >
+					 	 <img id="avatar" src="@if($student->image == null) {{asset('images/web/select-an-image.webp')}} @else {{asset('upload/images/students/'.$student->image)}} @endif" alt="crop image" >
+					 	 <!--<img id="avatar" src="https://skwebs.github.io/cropper-and-php/assets/img/select-an-image.jpg" alt="crop image" >-->
 					 <input type="file" class="sr-only" id="input" name="image" accept=".png,.jpg.jpeg,">
 					 </label>
 				 </div>
@@ -190,7 +191,7 @@
 
             formData.append('image', blob, 'avatar.'+mimeType.slice(6));
             formData.append('fileExt', mimeType.slice(6));
-            formData.append('id', '{{$id}}');
+            formData.append('id', '{{$student->id}}');
             formData.append('_token', '{{csrf_token()}}');
             
             

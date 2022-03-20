@@ -17,13 +17,15 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">{{ __('Add student for admit card') }}</div>
+                <div class="card-header">{{ __('Update Student\'s Details') }}</div>
 
                 <div class="card-body">
+                
+                
                     @if ($message = Session::get('success'))
-                    <div class="alert alert-success alert-block">
-                        <button type="button" class="close" data-dismiss="alert">×</button>
-                        <strong>{{ $message }}</strong>
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+	                    <strong>{{ $message }}</strong>
+	                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                     </div>
                     @endif
 
@@ -38,7 +40,7 @@
                     </div>
                     @endif
 
-                    <form method="POST" action="{{ route('student.store') }}" enctype="multipart/form-data">
+                    <form method="POST" action="{{ route('student.update', $student->id) }}" enctype="multipart/form-data">
                         @csrf
 
 
@@ -50,7 +52,7 @@
 
                             <div class="col-md-6">
                                 <input id="name" type="text" class="form-control @error('name') is-invalid @enderror"
-                                    name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
+                                    name="name" value="{{ old('name', $student->name) }}" required autocomplete="name" autofocus>
 
                                 @error('name')
                                 <span class="invalid-feedback" role="alert">
@@ -69,7 +71,7 @@
                             <div class="col-md-6">
                                 <input id="mother" type="text"
                                     class="form-control @error('mother') is-invalid @enderror" name="mother"
-                                    value="{{ old('mother') }}" autofocus>
+                                    value="{{ old('mother', $student->mother) }}" autofocus>
 
                                 @error('mother')
                                 <span class="invalid-feedback" role="alert">
@@ -88,7 +90,7 @@
                             <div class="col-md-6">
                                 <input id="father" type="text"
                                     class="form-control @error('father') is-invalid @enderror" name="father"
-                                    value="{{ old('father') }}" required autofocus>
+                                    value="{{ old('father', $student->father) }}" required autofocus>
 
                                 @error('father')
                                 <span class="invalid-feedback" role="alert">
@@ -107,13 +109,13 @@
 
                                 <div class="form-check form-check-inline">
                                     <input class="form-check-input @error('gender') is-invalid @enderror" type="radio"
-                                        name="gender" id="male" value="Male" required autofocus>
+                                       @if( old('gender', $student->gender)=='Male') checked @endif name="gender" id="male" value="Male" required autofocus>
                                     <label class="form-check-label" for="male">Male</label>
                                 </div>
-
+                                
                                 <div class="form-check form-check-inline">
                                     <input class="form-check-input @error('gender') is-invalid @enderror" type="radio"
-                                        name="gender" id="female" value="Female" required autofocus>
+                                        @if( old('gender', $student->gender)=='Female') checked @endif name="gender" id="female" value="Female" required autofocus>
                                     <label class="form-check-label" for="female">Female</label>
                                 </div>
 
@@ -125,7 +127,7 @@
                             </div>
                         </div>
                         <!-- //gender -->
-
+                        
                         <!-- date of birth -->
                         <div class="row mb-3">
                             <label for="dob"
@@ -133,7 +135,7 @@
 
                             <div class="col-md-6">
                                 <input id="dob" type="date" class="form-control @error('dob') is-invalid @enderror"
-                                    name="dob" value="{{ old('dob') }}" autocomplete="bday">
+                                    name="dob" value="{{ old('dob', $student->dob) }}" autocomplete="bday">
 
                                 @error('dob')
                                 <span class="invalid-feedback" role="alert">
@@ -152,7 +154,7 @@
                             <div class="col-md-6">
                                 <input id="aadhaar" type="number"
                                     class="form-control @error('aadhaar') is-invalid @enderror" name="aadhaar"
-                                    value="{{ old('aadhaar') }}" pattern="^[0-9]{12}$" autocomplete="aadhaar">
+                                    value="{{ old('aadhaar', $student->aadhaar) }}" pattern="^[0-9]{12}$" autocomplete="aadhaar">
 
                                 @error('aadhaar')
                                 <span class="invalid-feedback" role="alert">
@@ -170,7 +172,7 @@
 
                             <div class="col-md-6">
                                 <input id="mobile" type="tel" class="form-control @error('mobile') is-invalid @enderror"
-                                    value="{{ old('mobile') }}" name="mobile" pattern="^[6-9][0-9]{9}$" required
+                                    value="{{ old('mobile', $student->mobile) }}" name="mobile" pattern="^[6-9][0-9]{9}$" required
                                     autocomplete="tel">
 
                                 @error('mobile')
@@ -189,7 +191,7 @@
                             <div class="col-md-6">
                                 <input id="address" type="text"
                                     class="form-control @error('address') is-invalid @enderror" name="address"
-                                    value="{{ old('address') }}" required autocomplete="address">
+                                    value="{{ old('address', $student->address) }}" required autocomplete="address">
 
                                 @error('address')
                                 <span class="invalid-feedback" role="alert">
@@ -211,13 +213,13 @@
                                 <select class="form-select @error('class') is-invalid @enderror" name="class" required
                                     aria-label="Select Standard">
                                     <option value="">Select Class <span>*</span></option>
-                                    <option value="Nursery">Nursery</option>
-                                    <option value="LKG">LKG</option>
-                                    <option value="UKG">UKG</option>
-                                    <option value="Std.1">Std. 1</option>
-                                    <option value="Std.2">Std. 2</option>
-                                    <option value="Std.3">Std. 3</option>
-                                    <option value="Std.4">Std. 4</option>
+                                    <option @if( old('class', $student->class)=='Nursery') selected @endif value="Nursery" >Nursery</option>
+                                    <option @if( old('class', $student->class)=='LKG') selected @endif value="LKG">LKG</option>
+                                    <option @if( old('class', $student->class)=='UKG') selected @endif value="UKG">UKG</option>
+                                    <option @if( old('class', $student->class)=='Std.1') selected @endif value="Std.1">Std. 1</option>
+                                    <option @if( old('class', $student->class)=='Std.2') selected @endif value="Std.2">Std. 2</option>
+                                    <option @if( old('class', $student->class)=='Std.3') selected @endif value="Std.3">Std. 3</option>
+                                    <option @if( old('class', $student->class)=='Std.4') selected @endif value="Std.4">Std. 4</option>
                                     <!-- <option value="Std.5">Std. 5</option>
                                     <option value="Std.6">Std. 6</option>
                                     <option value="Std.7">Std. 7</option>
@@ -247,7 +249,7 @@
 
                             <div class="col-md-6">
                                 <input id="roll" type="number" class="form-control @error('roll') is-invalid @enderror"
-                                    value="{{ old('roll') }}" name="roll" pattern="^[0-9]{2}$" required
+                                    value="{{ old('roll', $student->roll) }}" name="roll" pattern="^[0-9]{2}$" required
                                     autocomplete="roll">
 
                                 @error('roll')
@@ -267,14 +269,14 @@
 
                                 <div class="form-check form-check-inline">
                                     <input class="form-check-input @error('student_type') is-invalid @enderror"
-                                        type="radio" name="student_type" id="existing" value="Existing" required
+                                        @if( old('student_type', $student->student_type)=='Existing') checked @endif type="radio" name="student_type" id="existing" value="Existing" required
                                         autofocus>
                                     <label class="form-check-label" for="existing">Existing</label>
                                 </div>
 
                                 <div class="form-check form-check-inline">
                                     <input class="form-check-input @error('student_type') is-invalid @enderror"
-                                        type="radio" name="student_type" id="new" value="New" required autofocus>
+                                        @if( old('student_type', $student->student_type)=='New') checked @endif type="radio" name="student_type" id="new" value="New" required autofocus>
                                     <label class="form-check-label" for="new">New</label>
                                 </div>
 
@@ -308,7 +310,7 @@
                         <div class="row mb-0">
                             <div class="col-md-6 offset-md-4">
                                 <button type="submit" class="btn btn-primary">
-                                    {{ __('Add Student') }}
+                                    {{ __('Update') }}
                                 </button>
                             </div>
                         </div>

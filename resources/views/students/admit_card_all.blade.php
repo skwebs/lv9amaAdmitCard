@@ -2,6 +2,8 @@
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
 <head>
+    <title>Admit Card | Anshu Memorial Academy</title>
+    
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -34,10 +36,10 @@
         .admit-card {
             background: linear-gradient(rgba(250, 250, 250, 0.9),
                 rgba(255, 255, 255, 0.85)),
-            url("{{asset('images/web/ama_256.png')}}") center/60px 60px round;
+            url("{{asset('images/web/ama300.webp')}}") center/60px 60px round;
             /* box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15); */
             width: 735px;
-            height: 510px;
+            height: 520px;
             margin-top: 0 !important;
             margin-bottom: 0 !important;
             padding-top: 0 !important;
@@ -48,7 +50,7 @@
     .admit-card {
         background: linear-gradient(rgba(250, 250, 250, 0.85),
             rgba(255, 255, 255, 0.85)),
-        url("{{asset('images/web/ama_256.png')}}") center/60px 60px round;
+        url("{{asset('images/web/ama300.webp')}}") center/60px 60px round;
         /* box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15); */
         width: 735px;
         height: 510px;
@@ -66,18 +68,31 @@
         /* border-bottom: thin solid; */
     }
 
-    .seal {
-        position: absolute;
-        left: 300px;
-        bottom: 25px;
-        width: 100px;
-    }
+    
 
     .seal-on-pic {
         position: absolute;
-        right: 94px;
-        bottom: 87px;
-        width: 100px;
+        right: 30px;
+        bottom: 10px;
+        width: 130px;
+    }
+    
+    .principal-seal {
+	    position: absolute;
+	    left: 60px;
+	    bottom: 40px;
+	    width: 190px;
+    }
+    
+    .principal-sign {
+	    position: absolute;
+	    left: 100px;
+	    bottom: 75px;
+	    width: 80px;
+    }
+    
+    .site{
+	    font-size:9px;
     }
     </style>
 
@@ -87,7 +102,6 @@
 
     <?php  $sn = 0 ?>
     @foreach($students as $student)
-
     <?php  $sn++ ?>
 
     <div style="width: 735px" height="518" class="card admit-card mx-auto">
@@ -108,7 +122,7 @@
                         <table width="700">
                             <tr>
                                 <td width="80">
-                                    <img height="80" src="{{asset('images/web/ama_256.png')}}" alt="" srcset="" />
+                                    <img height="80" src="{{asset('images/web/ama300.webp')}}" alt="" srcset="" />
                                 </td>
                                 <td>
                                     <p class="text-center fs-1 py-0 my-0">
@@ -124,7 +138,7 @@
 
                                 </td>
                                 <td width="80">
-                                    <img height="80" src="{{asset('images/web/bbbp_300.png')}}" alt="" srcset="" />
+                                    <img height="80" src="{{asset('images/web/bbbp300.webp')}}" alt="" srcset="" />
                                 </td>
                             </tr>
                         </table>
@@ -214,9 +228,9 @@
                                     <table class="table table-borderless">
                                         <tr>
                                             <td width="100">
-                                                <img height="130" src="{{asset('upload/images/students/'.$student->image)}}"
+                                                <img class="border border-dark"  height="145" src="{{asset('upload/images/students/'.$student->image)}}"
                                                     alt="{{$student->image}}" />
-                                                <img class="seal-on-pic" src="{{asset('images/web/seal_300.png')}}">
+                                                <img class="seal-on-pic" src="{{asset('images/web/ama_seal300.webp')}}">
                                             </td>
                                         </tr>
                                     </table>
@@ -228,24 +242,30 @@
                 <!-- //THIRD ROW -->
                 <tr>
                     <td>
-                        <br>
+                        
                         <br>
 
                     </td>
                 </tr>
                 <tr>
                     <td>
-                        <table width="700" class="text-center">
+                        <table width="570" class="text-center">
                             <tr>
-                                <td>Principal Sign</td>
-                                <td> School Seal <img class="seal" src="{{asset('images/web/seal_300.png')}}"></td>
+                                <td> Principal Seal & Sign 
+	                                <img class="principal-seal" src="{{asset('images/web/principal_seal400.webp')}}">
+	                                <img class="principal-sign" src="{{asset('images/web/principal_sign300.webp')}}">
+                                </td>
                                 <td>Exam Controller</td>
+                                <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
                             </tr>
                         </table>
                     </td>
                 </tr>
+               
             </table>
             <!-- //MAIN -->
+	            <div class="site text-center" >For more info log on <a href="https://anshumemorial.in" >www.anshumemorial.in</a> or write us on <a href="mailto:anshumemorial@gmail.com" >anshumemorial@gmail.com</a></div>
+	            
         </div>
     </div>
 

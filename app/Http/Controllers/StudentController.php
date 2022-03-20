@@ -14,6 +14,11 @@ class StudentController extends Controller
      */
     public function index()
     {
+        return redirect()->route('student.list');
+    }
+    
+    public function student_list()
+    {
         //
         $data['students'] = Student::orderByDesc('id')->get(); //orderBy('id','desc');
         //dd($data);
@@ -68,8 +73,10 @@ class StudentController extends Controller
     //public function show(Student $student)
     public function show($id)
     {
-        $data['student'] = Student::whereId($id)->first();
-        return view('students.admit_card_single', $data);
+        //$data['student'] = Student::whereId($id)->first();
+        //return view('students.admit_card_single', $data);
+	    $data['students'][0] = Student::whereId($id)->first();
+	    return view('students.admit_card_all',$data);
     }
 
     /**
@@ -78,10 +85,14 @@ class StudentController extends Controller
      * @param  \App\Models\Student  $student
      * @return \Illuminate\Http\Response
      */
-    public function edit(Student $student)
+    public function edit(Student $student,$id)
     {
-        //
-        return view('students.edit', compact('student'));
+        //dd($student);
+        $student = Student::whereId($id)->first();
+        
+        //dd($student->gender);
+	    
+        return view('students.edit', ['student'=>$student]);
     }
 
     /**
@@ -91,20 +102,21 @@ class StudentController extends Controller
      * @param  \App\Models\Student  $student
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Student $student)
+    public function update(Request $request, $id)
     {
         //
         $request->validate([
         'dob'       => 'date',
         'mobile'    => 'regex:/^[6-9][0-9]{9}/i',
         'roll'      => 'numeric',
-        'image' 	=> 'image|mimes:jpeg,png,jpg|max:2048',
+       
         ]);
         
-        $student->update($request->all());
+        $student = Student::whereId($id)
+        ->update($request->except(['_token']));
         
-        return redirect()->route('student.list');
-        
+        return redirect()->route('student.upload_image',$id);
+            
     }
 
     /**
@@ -126,7 +138,11 @@ class StudentController extends Controller
     
     public function upload_image($id)
     {
-    	return view('students.crop_image',compact('id'));
+        //$data['id']=$id;
+        $student = Student::whereId($id)->get(['id','image'])->first();
+        
+        //dd($data);
+    	return view('students.crop_image',compact('student'));
     }
     
     public function save_image(Request $request)
@@ -152,6 +168,7 @@ class StudentController extends Controller
     public function admit_cards()
     {
     	$data['students'] = Student::get(); //orderBy('id','desc');
+    	//dd($data);
     	return view('students.admit_card_all',$data);
     }
 }

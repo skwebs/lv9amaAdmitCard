@@ -46,8 +46,13 @@
                                     <td>{{$student->class}}</td>
                                     <td>{{$student->roll}}</td>
                                     <td>
-                                        <img height="50" src="{{asset('upload/images/students/'.$student->image)}}"
-                                            alt="{{$student->image}}">
+		                                @if($student->image==null)
+			                                <a href="{{route('student.upload_image',$student->id)}}" type="button"
+			                                class="btn btn-outline-primary">Upload</a>
+		                                @else
+		                                    <img height="50" src="{{asset('upload/images/students/'.$student->image)}}"
+		                                        alt="{{$student->image}}">
+		                                @endif
                                     </td>
                                     <td>
 	                                    <form action="{{ route('student.delete',$student->id) }}" method="POST">
