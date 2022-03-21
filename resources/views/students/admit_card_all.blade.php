@@ -91,6 +91,13 @@
 	    width: 80px;
     }
     
+    .exam-ctrl {
+	    position: absolute;
+	    left: 320px;
+	    bottom: 30px;
+	    width: 170px;
+    }
+    
     .site{
 	    font-size:9px;
     }
@@ -255,7 +262,10 @@
 	                                <img class="principal-seal" src="{{asset('images/web/principal_seal400.webp')}}">
 	                                <img class="principal-sign" src="{{asset('images/web/principal_sign300.webp')}}">
                                 </td>
-                                <td>Exam Controller</td>
+                                <td>
+	                                <img class="exam-ctrl" src="{{asset('images/web/chandani_roy512.webp')}}">
+	                                Exam Controller
+                                </td>
                                 <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
                             </tr>
                         </table>

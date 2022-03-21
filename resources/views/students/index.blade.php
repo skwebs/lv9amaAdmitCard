@@ -9,24 +9,34 @@
 @endsection
 
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
+<div class="container-fluid">
+    <div class="ro">
+        <div class="">
+        @if ($message = session('success'))
+	        <div class="alert alert-success alert-dismissible fade show" role="alert">
+	        <div class="text-center h3" ><strong>Success!</strong></div>
+	            {{ $message }}
+	            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+	        </div>
+        @endif
+        
             <div class="card">
 
                 <div class="card-header">
-                    <div class="flex justify-content-around">
-                        <a href="{{ route('student.create') }}" class=" btn btn-primary">Add Student</a>
+                    <div class="d-flex justify-content-between">
+                    <a href="{{ route('student.create') }}" class=" btn btn-primary">Add Student</a>
+                    <a href="{{ route('student.admit_cards') }}" class=" btn btn-primary">All Admit Cards</a>
                     </div>
                 </div>
 
-                <div class="card-body  overflow-auto" style="height:80vh">
+                <div class="card-body  overflow-auto" style="max-height:70vh">
                     <div class="table-responsive">
                         <table class="table">
 
                             <thead>
                                 <tr>
                                     <th class="text-nowrap" scope="col">#</th>
+                                    <th class="text-nowrap" scope="col">Id</th>
                                     <th class="text-nowrap" scope="col">Name</th>
                                     <th class="text-nowrap" scope="col">Father's Name</th>
                                     <th class="text-nowrap" scope="col">Class</th>
@@ -41,6 +51,7 @@
                                 @foreach($students as $student)
                                 <tr>
                                     <th scope="row">{{$loop->index+1}}</th>
+                                    <td>{{$student->id}}</td>
                                     <td>{{$student->name}}</td>
                                     <td>{{$student->father}}</td>
                                     <td>{{$student->class}}</td>
@@ -50,8 +61,13 @@
 			                                <a href="{{route('student.upload_image',$student->id)}}" type="button"
 			                                class="btn btn-outline-primary">Upload</a>
 		                                @else
-		                                    <img height="50" src="{{asset('upload/images/students/'.$student->image)}}"
-		                                        alt="{{$student->image}}">
+		                                    <a href="{{route('student.upload_image',$student->id)}}" type="button"
+		                                    class="link">
+			                                    <img height="50" src="{{asset('upload/images/students/'.$student->image)}}"
+			                                    alt="{{$student->image}}">
+		                                    </a>
+		                                    
+		                                    
 		                                @endif
                                     </td>
                                     <td>
@@ -64,7 +80,7 @@
 			                                    class="btn btn-outline-warning">Edit</a>
 			                                    @csrf
 			                                    @method('DELETE')
-			                                    <button type="submit" class="btn btn-outline-danger">Delete</button>
+			                                    <button type="submit" onclick="return confirm('Are you sure to delete this item?')" class="btn btn-outline-danger">Delete</button>
 		                                    </div>
 	                                    </form>
                                     </td>

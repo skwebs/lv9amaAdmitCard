@@ -21,12 +21,21 @@
 
                 <div class="card-body">
                     @if ($message = Session::get('success'))
-                    <div class="alert alert-success alert-block">
-                        <button type="button" class="close" data-dismiss="alert">×</button>
-                        <strong>{{ $message }}</strong>
-                    </div>
+	                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+		                    <strong>{{ $message }}</strong>
+		                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+	                    </div>
                     @endif
-
+                    
+                    @if ($message = session('warning'))
+	                    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+	                    <div class="text-center h3" ><strong>Alert!</strong></div>
+		                    {{ $message }}
+		                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+	                    </div>
+                    @endif
+                    
+                     <!-- 
                     @if (count($errors) > 0)
                     <div class="alert alert-danger">
                         <strong>Whoops!</strong> There were some problems with your input.
@@ -37,7 +46,8 @@
                         </ul>
                     </div>
                     @endif
-
+                    --> 
+                    
                     <form method="POST" action="{{ route('student.store') }}" enctype="multipart/form-data">
                         @csrf
 
@@ -107,13 +117,13 @@
 
                                 <div class="form-check form-check-inline">
                                     <input class="form-check-input @error('gender') is-invalid @enderror" type="radio"
-                                        name="gender" id="male" value="Male" required autofocus>
+                                        @if( old('gender')=='Male') checked @endif name="gender" name="gender" id="male" value="Male" required autofocus>
                                     <label class="form-check-label" for="male">Male</label>
                                 </div>
 
                                 <div class="form-check form-check-inline">
                                     <input class="form-check-input @error('gender') is-invalid @enderror" type="radio"
-                                        name="gender" id="female" value="Female" required autofocus>
+                                              @if( old('gender')=='Female') checked @endif name="gender" id="female" value="Female" required autofocus>
                                     <label class="form-check-label" for="female">Female</label>
                                 </div>
 
@@ -211,13 +221,13 @@
                                 <select class="form-select @error('class') is-invalid @enderror" name="class" required
                                     aria-label="Select Standard">
                                     <option value="">Select Class <span>*</span></option>
-                                    <option value="Nursery">Nursery</option>
-                                    <option value="LKG">LKG</option>
-                                    <option value="UKG">UKG</option>
-                                    <option value="Std.1">Std. 1</option>
-                                    <option value="Std.2">Std. 2</option>
-                                    <option value="Std.3">Std. 3</option>
-                                    <option value="Std.4">Std. 4</option>
+                                    <option @if( old('class')=='Nursery') selected @endif value="Nursery" >Nursery</option>
+                                    <option @if( old('class')=='LKG') selected @endif value="LKG">LKG</option>
+                                    <option @if( old('class')=='UKG') selected @endif value="UKG">UKG</option>
+                                    <option @if( old('class')=='Std.1') selected @endif value="Std.1">Std. 1</option>
+                                    <option @if( old('class')=='Std.2') selected @endif value="Std.2">Std. 2</option>
+                                    <option @if( old('class')=='Std.3') selected @endif value="Std.3">Std. 3</option>
+                                    <option @if( old('class')=='Std.4') selected @endif value="Std.4">Std. 4</option>
                                     <!-- <option value="Std.5">Std. 5</option>
                                     <option value="Std.6">Std. 6</option>
                                     <option value="Std.7">Std. 7</option>
@@ -267,14 +277,14 @@
 
                                 <div class="form-check form-check-inline">
                                     <input class="form-check-input @error('student_type') is-invalid @enderror"
-                                        type="radio" name="student_type" id="existing" value="Existing" required
+                                         @if( old('student_type')=='Existing') checked @endif type="radio" name="student_type" id="existing" value="Existing" required
                                         autofocus>
                                     <label class="form-check-label" for="existing">Existing</label>
                                 </div>
 
                                 <div class="form-check form-check-inline">
                                     <input class="form-check-input @error('student_type') is-invalid @enderror"
-                                        type="radio" name="student_type" id="new" value="New" required autofocus>
+                                         @if( old('student_type')=='New') checked @endif type="radio" name="student_type" id="new" value="New" required autofocus>
                                     <label class="form-check-label" for="new">New</label>
                                 </div>
 

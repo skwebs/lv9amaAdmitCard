@@ -42,7 +42,7 @@ Route::controller(StudentController::class)->group(function () {
     
     Route::delete('/student/delete/{id}','destroy')->name('student.delete');
     
-    Route::get('/student/admit-cards','admit_cards')->name('students.admit_cards');
+    Route::get('/student/admit-cards','admit_cards')->name('student.admit_cards');
 });
 
 

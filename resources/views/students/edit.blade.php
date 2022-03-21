@@ -1,4 +1,9 @@
 @extends('layouts.student_layout')
+
+@section('meta')
+     <title> Edit Student Details </title>
+@endsection
+
 @section('css')
 <style type="text/css">
 .form-control:required ~ label:after,
@@ -17,7 +22,12 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">{{ __('Update Student\'s Details') }}</div>
+                <div class="card-header">
+	                <div class="d-flex justify-content-between" >
+		                <span>{{ __('Update Student\'s Details') }}</span>
+		                <a class="btn btn-primary"  href="{{ route('student.list')}}" >Go Back</a>
+	                </div>
+                </div>
 
                 <div class="card-body">
                 
@@ -28,6 +38,13 @@
 	                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                     </div>
                     @endif
+
+					@if ($message = session('warning'))
+	                    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+		                    <strong>{{ $message }}</strong>
+		                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+	                    </div>
+					@endif
 
                     @if (count($errors) > 0)
                     <div class="alert alert-danger">

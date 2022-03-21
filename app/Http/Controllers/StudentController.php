@@ -20,7 +20,7 @@ class StudentController extends Controller
     public function student_list()
     {
         //
-        $data['students'] = Student::orderByDesc('id')->get(); //orderBy('id','desc');
+        $data['students'] = Student::orderByDesc('class')->get(); //orderBy('id','desc');
         //dd($data);
         return view('students.index',$data);
         
@@ -47,7 +47,7 @@ class StudentController extends Controller
         //
         $request->validate([
         'name'      => 'required',
-        'mother'    => 'nullable',
+        'mother'    => 'required',
         'father'    => 'required',
         'gender'    => 'required',
         'dob'       => 'date|nullable',
@@ -58,9 +58,14 @@ class StudentController extends Controller
         'student_type'=> 'required',
         ]);
         
+        if(Student::where(['class'=>$request->class, 'roll'=>$request->roll])->first()){
+	        return redirect()->back()->withInput()->with('warning',"The student Class: \"{$request->class}\" and Roll No. \"{$request->roll}\" already exist.");
+        }
+        
         $student = Student::create($request->all());
         
-        return redirect()->route('student.upload_image',$student->id);
+        //return redirect()->route('student.list')->with('success',"{$request->name}, Class : \"{$request->class}\",  Roll No.: \"{$request->roll}\" is added successfully.");
+        return redirect()->route('student.upload_image',$student->id)->with('success',"{$request->name}, Class : \"{$request->class}\",  Roll No.: \"{$request->roll}\" has added successfully.");
             
     }
 
@@ -106,16 +111,31 @@ class StudentController extends Controller
     {
         //
         $request->validate([
-        'dob'       => 'date',
+        'name'      => 'required',
+        'mother'    => 'required',
+        'father'    => 'required',
+        'gender'    => 'required',
+        'dob'       => 'date|nullable',
         'mobile'    => 'regex:/^[6-9][0-9]{9}/i',
-        'roll'      => 'numeric',
-       
+        'address'   => 'required',
+        'class'     => 'required', 
+        'roll'      => 'numeric|required',
+        'student_type'=> 'required',
         ]);
+        
+        // check if update roll or/and class then enter class-roll combination already exist or not
+        if($stu=Student::where(['class'=>$request->class, 'roll'=>$request->roll])->first()){
+        	if($stu->id != $id){
+        	//if class-roll combination already exist then return back
+	        	return redirect()->back()->withInput()->with('warning','Updating class and/or roll already exist!');
+	        }
+        }
         
         $student = Student::whereId($id)
         ->update($request->except(['_token']));
         
-        return redirect()->route('student.upload_image',$id);
+        //return redirect()->route('student.upload_image',$id);
+       return redirect()->route('student.list')->with('success',"{$request->name}, Class : \"{$request->class}\",  Roll No.: \"{$request->roll}\" has updated successfully.");
             
     }
 
@@ -129,10 +149,15 @@ class StudentController extends Controller
     {
     
     	$student = Student::whereId($id)->first();
+    	$name = $student->name;
+    	$class = $student->class;
+    	$roll = $student->roll;
     	
         $student->delete();
         
-        return redirect()->route('student.list');
+        return redirect()->route('student.list')->with('success',"{$name}, Class : \"{$class}\",  Roll No.: \"{$roll}\" has trashed successfully.");
+        
+        //return redirect()->route('student.list');
     }
     
     
