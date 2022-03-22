@@ -197,7 +197,7 @@ $height = $width/$ratio;
           formData.append('fileExt', mimeType.slice(6));
           formData.append('id', '{{$admitCard->id}}');
           formData.append('_token', '{{csrf_token()}}');
-          $.ajax('{{route("admitCard.save_image")}}', {
+          $.ajax('{{route("admitCard.save_image", $admitCard->id)}}', {
             method: 'POST',
             data: formData,
             processData: false,

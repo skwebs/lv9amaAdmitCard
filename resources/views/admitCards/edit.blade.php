@@ -61,7 +61,7 @@
                         @csrf
                         @method('PUT')
                         
-                        <input type="hidden" name="{{$admitCard->id}}" >
+                        <input type="hidden" name="id" value="{{$admitCard->id}}" >
                         <!-- name -->
                         <div class="row mb-3">
                             <label for="name"
@@ -73,7 +73,7 @@
 
                                 @error('name')
                                 <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
+                                    {{ $message }}
                                 </span>
                                 @enderror
                             </div>

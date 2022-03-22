@@ -118,7 +118,9 @@
                 <tr>
                     <td>
                         <div style="width: 700px;" class="d-flex justify-content-between my-0 py-0">
-                            <span>Estd. 2017</span><span>Reg. No. 054631</span>
+                            <span>Estd. <strong>2017</strong></span>
+                            <span>CIN: <strong>U85300BR2021NPL054631</strong></span>
+                            <span>Reg. No. <strong>054631</strong></span>
                         </div>
                     </td>
                 </tr>

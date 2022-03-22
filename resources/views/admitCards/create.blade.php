@@ -17,7 +17,13 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">{{ __('Add student for admit card') }}</div>
+                <div class="card-header">
+                
+                <div class="d-flex justify-content-between" >
+	                <span>{{ __('Add New Student\'s Details') }}</span>
+		                <a class="btn btn-primary"  href="{{ route('admitCard.index')}}" >Go Back</a>
+	                </div>
+                </div>
 
                 <div class="card-body">
                     @if ($message = Session::get('success'))

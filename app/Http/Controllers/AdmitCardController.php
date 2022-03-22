@@ -14,7 +14,7 @@ class AdmitCardController extends Controller
      */
     public function index()
     {
-        $data['admitCards'] = AdmitCard::orderByDesc('class')->get(); //orderBy('id','desc');
+        $data['admitCards'] = AdmitCard::orderByDesc('id')->get(); //orderBy('id','desc');
        // dd($data);
         return view('admitCards.index',$data);
     }
@@ -69,7 +69,9 @@ class AdmitCardController extends Controller
      */
     public function show(AdmitCard $admitCard)
     {
-        return view('admitCards.show', compact('admitCard'));
+	    $admitCards[0] = $admitCard;
+	    // using admit_cards_all view for single admit card using above method
+        return view('admitCards.admit_card_all', compact('admitCards'));
     }
 
     /**
@@ -107,10 +109,11 @@ class AdmitCardController extends Controller
         
         // check if update roll or/and class then enter class-roll combination already exist or not
         if($stu=AdmitCard::where(['class'=>$request->class, 'roll'=>$request->roll])->first()){
-        if($stu->id != $request->id){
-        //if class-roll combination already exist then return back
-        return redirect()->back()->withInput()->with('warning','Updating class and/or roll already exist!');
-        }
+	        if($stu->id != $request->id){
+	        //if class-roll combination already exist then return back
+			    return redirect()->back()->withInput()->with('warning',"The student Class: \"{$request->class}\" and Roll No. \"{$request->roll}\" already exist.");
+			    //return redirect()->back()->withInput()->with('warning','Updating class and/or roll already exist!');
+		    }
         }
         
         $admitCard->update($request->except(['_token', 'id']));
@@ -139,22 +142,18 @@ class AdmitCardController extends Controller
     }
     
     //added
-	public function upload_image($id)
+	public function upload_image(AdmitCard $admitCard)
 	{
-	    //$data['id']=$id;
-	    $admitCard = AdmitCard::whereId($id)->get(['id','image'])->first();
-	    
-	    //dd($data);
-		return view('admitCards.crop_image',compact('admitCard'));
+	    return view('admitCards.crop_image',compact('admitCard'));
 	}
 	
-	public function save_image(Request $request)
+	public function save_image(Request $request, AdmitCard $admitCard)
 	{
 			$imageName = time().'.jpg'; //$request->image->extension();  
 			
 			$request->image->move(public_path('upload/images/students'), $imageName);
 			
-			$admitCard = AdmitCard::whereId($request->id)->first();
+			//$admitCard = AdmitCard::whereId($request->id)->first();
 		
 		$admitCard->image = $imageName;
 		
@@ -170,8 +169,14 @@ class AdmitCardController extends Controller
 	
 	public function admit_cards()
 	{
-		$data['admitCards'] = AdmitCard::get(); //orderBy('id','desc');
+		$data['admitCards'] = AdmitCard::orderByDesc('class')->get(); //orderBy('id','desc');
 		//dd($data);
 		return view('admitCards.admit_card_all',$data);
+	}
+	
+	// admin homepage
+	
+	public function admin_homepage(){
+		return view('admin_homepage');
 	}
 }
