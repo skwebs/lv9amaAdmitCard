@@ -22,7 +22,7 @@ Route::get('/', function () {
 */
 
 Route::controller(StudentController::class)->group(function () {
-
+/*
     Route::get('/', 'index')->name('student');
     
     Route::get('/student', 'student_list')->name('student.list');
@@ -44,7 +44,7 @@ Route::controller(StudentController::class)->group(function () {
     Route::delete('/student/delete/{id}','destroy')->name('student.delete');
     
     Route::get('/student/admit-cards','admit_cards')->name('student.admit_cards');
-    
+    */
 });
 
 Route::resource('admitCard', AdmitCardController::class);
@@ -54,7 +54,7 @@ Route::controller(AdmitCardController::class)->group(function(){
 	
 	Route::post('/admitCard/save-image', 'save_image')->name('admitCard.save_image');
 	
-	Route::get('/admitCards','admit_cards')->name('admitCard.admit_cards');
+	Route::get('/admitCard/admit-cards','admit_cards')->name('admitCard.admit_cards');
 	
 });
 

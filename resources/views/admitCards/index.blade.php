@@ -11,7 +11,7 @@
 @section('content')
 <div class="container-fluid">
     <div class="row">
-        <div class="d-flex justify-content-center">
+        <div class="d-flex flex-column justify-content-center">
         @if ($message = session('success'))
 	        <div class="alert alert-success alert-dismissible fade show" role="alert">
 	        <div class="text-center h3" ><strong>Success!</strong></div>
@@ -24,8 +24,8 @@
 
                 <div class="card-header">
                     <div class="d-flex justify-content-between">
-                    <a href="{{ route('student.create') }}" class=" btn btn-primary">Add Student</a>
-                    <a href="{{ route('student.admit_cards') }}" class=" btn btn-primary">All Admit Cards</a>
+                    <a href="{{ route('admitCard.create') }}" class=" btn btn-primary">Add Student</a>
+                    <a href="{{ route('admitCard.admit_cards') }}" class=" btn btn-primary">All Admit Cards</a>
                     </div>
                 </div>
 
@@ -48,35 +48,33 @@
 
                             <tbody>
 
-                                @foreach($students as $student)
+                                @foreach($admitCards as $admitCard)
                                 <tr>
                                     <th scope="row">{{$loop->index+1}}</th>
-                                    <td>{{$student->id}}</td>
-                                    <td>{{$student->name}}</td>
-                                    <td>{{$student->father}}</td>
-                                    <td>{{$student->class}}</td>
-                                    <td>{{$student->roll}}</td>
+                                    <td>{{$admitCard->id}}</td>
+                                    <td>{{$admitCard->name}}</td>
+                                    <td>{{$admitCard->father}}</td>
+                                    <td>{{$admitCard->class}}</td>
+                                    <td>{{$admitCard->roll}}</td>
                                     <td>
-		                                @if($student->image==null)
-			                                <a href="{{route('student.upload_image',$student->id)}}" type="button"
+		                                @if($admitCard->image==null)
+			                                <a href="{{route('admitCard.upload_image',$admitCard->id)}}" type="button"
 			                                class="btn btn-outline-primary">Upload</a>
 		                                @else
-		                                    <a href="{{route('student.upload_image',$student->id)}}" type="button"
+		                                    <a href="{{route('admitCard.upload_image',$admitCard->id)}}" type="button"
 		                                    class="link">
-			                                    <img height="50" src="{{asset('upload/images/students/'.$student->image)}}"
-			                                    alt="{{$student->image}}">
+			                                    <img height="50" src="{{asset('upload/images/students/'.$admitCard->image)}}"
+			                                    alt="{{$admitCard->image}}">
 		                                    </a>
-		                                    
-		                                    
 		                                @endif
                                     </td>
                                     <td>
-	                                    <form action="{{ route('student.delete',$student->id) }}" method="POST">
+	                                    <form action="{{ route('admitCard.destroy',$admitCard->id) }}" method="POST">
 		                                    <div class="btn-group" role="group" aria-label="Basic example">
 		                                    
-			                                    <a href="{{route('student.view',$student->id)}}" type="button"
+			                                    <a href="{{route('admitCard.show',$admitCard->id)}}" type="button"
 			                                    class="btn btn-outline-primary">View</a>
-			                                    <a href="{{route('student.edit',$student->id)}}" type="button"
+			                                    <a href="{{route('admitCard.edit',$admitCard->id)}}" type="button"
 			                                    class="btn btn-outline-warning">Edit</a>
 			                                    @csrf
 			                                    @method('DELETE')
